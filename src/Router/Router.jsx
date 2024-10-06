@@ -1,6 +1,7 @@
 import React from 'react'
 import Add from '../Pages/Add';
 import Home from '../Pages/Home';
+import Update from "../Pages/Update"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 const router = createBrowserRouter([
   {
@@ -12,6 +13,11 @@ const router = createBrowserRouter([
   , {
     path: "/add",
     element: <Add/>
+  },
+  {
+      path:"/update/:id/:name",
+      element:<Update></Update>
+
   }
 ]);
 function Router() {

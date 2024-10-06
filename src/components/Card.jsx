@@ -1,14 +1,31 @@
 import React from 'react'
 import axios from "axios"
-
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { Link } from 'react-router-dom'
 function Card(props) {
 
 
     function deleteCast(id){
-        axios.delete("https://66e8028eb17821a9d9daf072.mockapi.io/chars/"+id)
-        .then(res =>{
-            props.getCast()
-        })
+       
+            withReactContent(Swal).fire({
+              title: "Are You sure you want to delete?",
+              showCancelButton:true
+             
+            }).then(res=>{
+                if(res.isConfirmed) {
+
+                    axios.delete("https://66e8028eb17821a9d9daf072.mockapi.io/chars/"+id)
+                    .then(res =>{
+                        props.getCast()})
+                    }
+         })
+               
+          
+      
+
+       
+       
     }
    
   return (
@@ -34,13 +51,17 @@ function Card(props) {
         </div>
 
        
-            <button onClick={()=>deleteCast(props.id)}  className='hover:scale-110 duration-300 mt-auto ml-auto rounded-md bg-[#e62d2d] text-white text-lg p-2'>Delete</button>
-      
-       
+       <div className='mt-auto flex justify-around w-[100%]'>
+        <button onClick={()=>deleteCast(props.id)}  className='hover:text-white hover:scale-110 duration-300 mt-auto  rounded-md border-[1px] hover:bg-[#e62d2d] border-[#e62d2d] text-[#e62d2d] text-lg p-2'>Delete</button>
         
+        <Link to={"/update/"+props.id+"/"+props.name}  className='hover:text-white hover:scale-110 duration-300 mt-auto  rounded-md border-[1px] border-[#7bfba1] hover:bg-[#7bfba1] text-[#7bfba1]  text-lg p-2'>Update</Link>
+       </div>
+           
       
     </div>
   )
 }
+
+
 
 export default Card
